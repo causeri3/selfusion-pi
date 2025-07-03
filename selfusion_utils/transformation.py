@@ -205,16 +205,18 @@ class Transformation:
         y_top = 60  # pixels from top
 
         x1 = x_center - bar_width // 2
-        x2 = x1 + int(bar_width * progress)
         y1 = y_top
-        y2 = y_top + bar_height
+        x2 = x1 + bar_width
+        y2 = y1 + bar_height
 
-        # noise background
-        noise = np.random.randint(0, 256, (bar_height, bar_width, 3), dtype=np.uint8)
-        frame[y1:y2, x_center - bar_width // 2: x_center + bar_width // 2] = noise
-
-        # white progress bar
+        # Full white bar background
         cv2.rectangle(frame, (x1, y1), (x2, y2), (255, 255, 255), -1)
+
+        # Shrinking noise overlay (from right to left)
+        overlay_width = int(bar_width * (1 - progress))
+        if overlay_width > 0:
+            noise = np.random.randint(0, 256, (bar_height, overlay_width, 3), dtype=np.uint8)
+            frame[y1:y2, x2 - overlay_width:x2] = noise
 
         font = cv2.FONT_HERSHEY_SIMPLEX
         text = f"LOADING YOUR TRANSFORMATION"
