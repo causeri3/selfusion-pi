@@ -8,6 +8,14 @@ Takes automated selfies, generates more pictures from that, and plays a bouncing
 
 ---
 
+https://github.com/user-attachments/assets/008ab640-0a8f-4742-81ea-54a7783c44f8
+
+<img width="300" alt="Screenshot 2025-07-03 at 08 17 57" src="https://github.com/user-attachments/assets/e3fb49f1-9c1f-4b36-a833-9721a986f01b" />
+
+<img width="300" alt="Screenshot 2025-07-03 at 08 43 01" src="https://github.com/user-attachments/assets/09dd3baf-1b9b-4031-8606-a2e41b961b8f" />
+
+---
+
 Using:
 - **Automated Selfies**: Yolov8 trained by [arnabdhar](https://huggingface.co/arnabdhar/YOLOv8-Face-Detection)
 - **Offline image generation**: Neural Style Transfer [deepeshdm](https://github.com/deepeshdm/PixelMix/tree/main)
