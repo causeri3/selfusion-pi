@@ -23,8 +23,10 @@ logging.basicConfig(encoding='utf-8', level=logging.DEBUG)
 stream = Stream(
     #available_devices = device, # [0],
     see_detection=True,
-    available_devices=None
+    available_devices=None,
+    face_size_threshold=0.05
     )
+
 selfie = stream.draw_boxes()
 
 # window_name = 'SELFIE'
