@@ -76,11 +76,11 @@ class Stream:
         while cap.isOpened():
             start_time = time.time()
 
-            # Read frame from the video
             ret, self.frame = cap.read()
 
             if not ret:
-                break
+                logging.warning("Failed to read frame. Retry...")
+                continue
 
             image_w_boxes, json_payload, raw_frame = self.predict_n_stream()
             if self.see_detection:
