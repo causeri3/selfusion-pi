@@ -9,3 +9,5 @@ supervision
 ultralytics
 bleak
 bledom
+fastapi
+uvicorn
