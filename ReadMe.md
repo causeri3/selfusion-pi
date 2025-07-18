@@ -1,7 +1,8 @@
 # Selfusion
 ### Repository for an art installation  
-*(made for Fusion 2025)*
-
+*(made for Fusion / Bornhack 2025)*
+---
+*Bornhackers*: Check out http://151.216.66.159:8000/docs
 ---
 
 Takes automated selfies, generates more pictures from that, and plays a bouncing gif. 
