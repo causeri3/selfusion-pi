@@ -5,12 +5,13 @@ import numpy as np
 import logging
 
 from selfusion_utils.args import get_args
+from selfusion_utils.prompt import prompt_store
 
 args, unknown = get_args()
 
 def request_sdxlturbo(selfie,
                       result_container,
-                      prompt:str = args.prompt,
+                      #prompt:str = args.prompt,
                       amount_pics:int = args.amount_pics,
                       num_inference_steps:int = args.num_inference_steps,
                       strength_min:float =args.strength_min,
@@ -19,7 +20,7 @@ def request_sdxlturbo(selfie,
                       # 10 min, but thread kills it anyway earlier with LOADING_DURATION_SEC
                       timeout=600):
     data = {
-        'prompt': prompt,
+        'prompt': prompt_store.prompt,
         'amount_pics': amount_pics,
         'num_inference_steps': num_inference_steps,
         'strength_min': strength_min,
@@ -29,7 +30,9 @@ def request_sdxlturbo(selfie,
     try:
         files = _selfie_to_file_data(selfie)
 
-        response = requests.post("http://localhost:8000/sdxlturbo",
+        response = requests.post(
+            #"http://localhost:8000/sdxlturbo",
+            "https://ca7oe368anzekx-8000.proxy.runpod.net/sdxlturbo",
                                   files=files,
                                   data=data,
                                   timeout=timeout)
