@@ -31,8 +31,7 @@ def request_sdxlturbo(selfie,
         files = _selfie_to_file_data(selfie)
 
         response = requests.post(
-            #"http://localhost:8000/sdxlturbo",
-            "https://ca7oe368anzekx-8000.proxy.runpod.net/sdxlturbo",
+            "http://localhost:8000/sdxlturbo",
                                   files=files,
                                   data=data,
                                   timeout=timeout)
