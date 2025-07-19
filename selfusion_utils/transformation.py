@@ -4,12 +4,15 @@ import time
 import numpy as np
 import os
 import cv2
+import csv
 import asyncio
+from datetime import datetime
 from selfusion_utils.call_sdxlturbo import request_sdxlturbo
 from neural_style_transfer.nst import generate_image_list
 from yolo_v8_face.utils.video import Stream
 from selfusion_utils.args import get_args
 from selfusion_utils.leds import LedController
+from selfusion_utils.prompt import prompt_store
 
 args, unknown = get_args()
 if args.cam_device_number:
@@ -57,6 +60,12 @@ def custom_excepthook(exc_info):
     os._exit(1)
 
 
+def log(message, filename="log.txt"):
+    with open(filename, "a") as f:
+        timestamp = datetime.now().isoformat(sep=' ', timespec='seconds')
+        f.write(f"{timestamp} - {message}\n")
+
+
 # Set the global exception handler for all threads
 threading.excepthook = custom_excepthook
 
@@ -98,8 +107,10 @@ class Transformation:
         if sdxl_result.get('success', False):
             logging.info(f"SDXLTurbo took {time.time() - sdxl_start} sec")
             gif_frames = [img for img in sdxl_result['images']]
+            log_csv(prompt_store.prompt)
         else:
             gif_frames = [np.array(img) for img in nst_images]
+            log_csv("nst")
 
         with self.gif_lock:
             self.frames = gif_frames
@@ -240,3 +251,19 @@ class Transformation:
         text_x = x_center - text_size[0] // 2
 
         cv2.putText(frame, text, (text_x, y_center), font, text_scale, (255, 255, 255), text_thickness, cv2.LINE_AA)
+
+
+
+def log_csv(message, filename="log.csv"):
+    file_exists = os.path.exists(filename)
+    line_number = 1
+
+    if file_exists:
+        with open(filename, "r") as f:
+            line_number = sum(1 for _ in f)
+    with open(filename, "a", newline="") as f:
+        writer = csv.writer(f)
+        if not file_exists:
+            writer.writerow(["Row", "Timestamp", "Message"])
+        timestamp = datetime.now().isoformat(sep=' ', timespec='seconds')
+        writer.writerow([line_number, timestamp, message])
