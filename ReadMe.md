@@ -3,7 +3,7 @@
 *(made for Fusion / Bornhack 2025)*
 
 ---
-*Bornhackers*: Check out http://151.216.66.159:8000/docs
+*for CCC*: Check out http://151.219.244.125:8000/docs
 
 ---
 
